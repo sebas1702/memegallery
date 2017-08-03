@@ -8,8 +8,8 @@ use Illuminate\Http\Request;
 class ImageController extends Controller
 {
 	
-	public function add()
+	public function add(Request $request)
 	{
-		echo "Hola mundo";
+		
 	}
 }
