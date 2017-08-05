@@ -15,36 +15,59 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+//Login y Register
 Auth::routes();
 
-Route::resource ('imagenes','ImagenesController');
 
+
+// HomeController
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+
+// ImagenController
+Route::resource ('imagenes','ImagenesController');
+Route::get('/listado', 'ImagenesController@listar');
+Route::post('/imagenes' , 'ImagenesController@store');
+
+
+// storageC
+
 Route::get('formulario', 'StorageController@index');
 Route::post('storage/create', 'StorageController@save');
 
-Route::get('storage/{archivo}', function ($archivo) {
-     $public_path = public_path();
-     $url = $public_path.'/storage/'.$archivo;
-     //verificamos si el archivo existe y lo retornamos
-     if (Storage::exists($archivo))
-     {
-       return response()->download($url);
-     }
-     //si no se encuentra lanzamos un error 404.
-     abort(404);
 
-     $public_path = public_path();
-     $url = $public_path.'/storage/'.$archivo;
-     //verificamos si el archivo existe y lo retornamos
-     if (Storage::exists($archivo))
-     {
-       return response()->download($url);
-     }
-     //si no se encuentra lanzamos un error 404.
-     abort(404);
 
-});
+
+
+
+
+
+
+//Route::get('storage/{archivo}', function ($archivo) {
+  //   $public_path = public_path();
+
+    // $url = $public_path.'/storage/'.$archivo;
+     //verificamos si el archivo existe y lo retornamos
+     //if (Storage::exists($archivo))
+     //{
+      // return response()->download($url);
+     //}
+     //si no se encuentra lanzamos un error 404.
+     //abort(404);
+
+     //$public_path = public_path();
+     //$url = $public_path.'/upload/'.$archivo;
+     //verificamos si el archivo existe y lo retornamos
+     //if (Storage::exists($archivo))
+     //{
+       //return response()->download($url);
+     //}
+     //si no se encuentra lanzamos un error 404.
+     //abort(404);
+
+//});
 
 
 

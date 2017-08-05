@@ -23,7 +23,13 @@ class HomeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
+
+
     {
-        return view('home');
+        
+        $imagenes = Imagen::all();
+        return view ('home',compact('imagenes'));
+
+         
     }
 }

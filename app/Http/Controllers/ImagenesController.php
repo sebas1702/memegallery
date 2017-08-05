@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Imagen;
+use App\Storage;
 
 class ImagenesController extends Controller
 {
@@ -14,9 +15,7 @@ class ImagenesController extends Controller
      */
     public function index()
     {
-        $imagenes = Imagen::all();
-        dd($imagenes);
-        
+        return view ('home');
 
     }
 
@@ -38,15 +37,32 @@ class ImagenesController extends Controller
      */
     public function store(Request $request)
     {
+    
+   
+    Imagen::create(array(
+    'name' => $request->get('name'),
+    'detalle' => $request->get('detalle'),
+    'size'=> $request->get('size')
 
-       Imagen::create(array(
-      'name' => $request->get('name'),
-      'detalle' => $request->get('detalle'),
-      'size'=> $request->get('size')
 
-    ));
+    )); 
 
-         return view('home');
+
+     //obtenemos el campo file definido en el formulario
+       $file = $request->file('file');
+ 
+       //obtenemos el nombre del archivo
+       $nombre = $file->getClientOriginalName();
+ 
+       //indicamos que queremos guardar un nuevo archivo en el disco local
+       \Storage::disk('local')->put($nombre,  \File::get($file));
+
+      $imagenes = Imagen::all();
+        return view ('home', compact('imagenes'));
+
+           
+
+
        
     }
 
@@ -56,9 +72,10 @@ class ImagenesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        //
+     
+    
     }
 
     /**
@@ -94,4 +111,14 @@ class ImagenesController extends Controller
     {
         //
     }
+
+    public function  listar()
+    {
+         $imagenes = Imagen::all();
+
+        return view ('listado', compact('imagenes'));
+
+     
+    } 
+
 }
