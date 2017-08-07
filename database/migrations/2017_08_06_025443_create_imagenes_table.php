@@ -13,14 +13,19 @@ class CreateImagenesTable extends Migration
      */
     public function up()
     {
-       Schema::create('imagenes', function (Blueprint $table) {
+        Schema::create('imagenes', function(Blueprint $table) {
+
             $table->increments('id');
             $table->string('name');
-            $table->string('detalle')->unique();
-            $table->string('size');
-            $table->string('usuario');
-            $table->rememberToken();
-            $table->timestamps();
+            $table->text('detalle');
+            $table->integer('user_id')->unsigned();
+           
+
+
+        $table->foreign('user_id')->references('id')->on('users');
+        $table->timestamps();
+
+
         });
     }
 

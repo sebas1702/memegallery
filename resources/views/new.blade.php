@@ -30,16 +30,7 @@
 
   <input class="form-control" type="text" required="required" placeholder="Detalle" name="detalle" id="detalle"><br>
 
-  </div>
-
-  <div class="form-group">
-
-    <label class="col-sm-2 control-label">Tamaño</label>
-  <input class="form-control" type="text" required="required" placeholder="Tamaño" name="size" id="size"><br>
-
-  </div>
-
-            
+  </div>           
             <div class="form-group">
               <label class="col-md-4 control-label">Nuevo Archivo</label>
               <div class="col-md-6">

@@ -29,6 +29,6 @@ class User extends Authenticatable
 
     public function imagenes()
     {
-        return $this->hasMany(Imagen::class);
+        return $this->hasMany('App\Imagen');
     }
 }

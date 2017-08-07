@@ -22,11 +22,12 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+
     public function index()
 
-
     {
-        
+     
         $imagenes = Imagen::all();
         return view ('home',compact('imagenes'));
 

@@ -5,9 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Imagen;
 use App\Storage;
+use App\Category;
+use App\Auth;
+
+
 
 class ImagenesController extends Controller
 {
+
+
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +22,9 @@ class ImagenesController extends Controller
      */
     public function index()
     {
-        return view ('home');
+
+     $imagenes = Imagen::all();
+    return view ('welcome', compact('imagenes'));
 
     }
 
@@ -26,7 +35,9 @@ class ImagenesController extends Controller
      */
     public function create()
     {
-        return view ('create');
+
+    return view ('create');
+
     }
 
     /**
@@ -38,18 +49,10 @@ class ImagenesController extends Controller
     public function store(Request $request)
     {
     
-   
-    Imagen::create(array(
-    'name' => $request->get('name'),
-    'detalle' => $request->get('detalle'),
-    'size'=> $request->get('size')
-
-
-    )); 
-
-
+       
      //obtenemos el campo file definido en el formulario
        $file = $request->file('file');
+       dd(file);
  
        //obtenemos el nombre del archivo
        $nombre = $file->getClientOriginalName();
@@ -57,8 +60,8 @@ class ImagenesController extends Controller
        //indicamos que queremos guardar un nuevo archivo en el disco local
        \Storage::disk('local')->put($nombre,  \File::get($file));
 
-      $imagenes = Imagen::all();
-        return view ('home', compact('imagenes'));
+     
+       // return view ('home', compact('imagenes'));
 
            
 
@@ -86,7 +89,12 @@ class ImagenesController extends Controller
      */
     public function edit($id)
     {
-        //
+        
+           
+
+
+
+
     }
 
     /**
@@ -109,16 +117,38 @@ class ImagenesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $imagen = Imagen::find($id);
+
+        $imagen->delete();
+
+        $imagenes = Imagen::all();
+        return view('home' , compact('imagenes'));
     }
 
-    public function  listar()
+    public function  listar(Request $request)
     {
-         $imagenes = Imagen::all();
+         $imagenes = Imagen::Search($request->name)->orderBy('id','DESC')->paginate(5);
 
         return view ('listado', compact('imagenes'));
 
      
+    }
+
+
+    //prueba
+    public function view($id)
+    {
+                
+        //Auth::user()->name 
+        
+       // $imagen = Imagen::find($id);
+        //$imagen->category;
+        //$imagen->user;
+
+    //dd($imagen);
+
+
     } 
+
 
 }

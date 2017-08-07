@@ -5,12 +5,14 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 
+
 class Imagen extends Model
 {
 
 	protected $table = 'imagenes';
+
     protected $fillable = [
-        'name', 'detalle', 'size','usuario'
+        'name', 'detalle','user_id','category_id'
     ];
 
 
@@ -23,8 +25,27 @@ class Imagen extends Model
   	
   	//}
   
-   public function  user()
+   public function  category()
    {
-   	return $this->belongsTo(User::class);
+   	return $this->belongsTo('App\Category'); //nombre de la clase 
    }
+
+ public function  user()
+   {
+    return $this->belongsTo('App\User'); //nombre de la clase 
+   }
+
+
+public function  tags()
+   {
+    return $this->belongsToMany('App\Tag'); //nombre de la clase 
+   }
+
+ public function scopeSearch($query , $name)
+    {
+
+        return $query->where('name' , 'LIKE' , "%$name%");
+    }
+
+
 }

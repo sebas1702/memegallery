@@ -15,28 +15,38 @@
                         <th>Id</th>
                         <th>Nombre</th>
                         <th>Detalle</th>
-                        <th>Size</th>
+                        <th>Usuario</th>
                         <th>Accion</th>
 
                     </thead>
       
-                     @foreach($imagenes as $imagen)
-                    <tbody>
-                        <td>{{$imagen->id}}</td>
-                        <td>{{$imagen->name}} </td>
+                @foreach($imagenes as $imagen)
+                    
+                        <tbody>
+                            <td>{{$imagen->id}}</td>
+                            <td>
+                                <div class="row">
+                                    <div class="col-sm-6 col-md-4">
+                                        <div class="thumbnail">
+                                            <img src="/upload/{{$imagen->name}}" alt="...">
+                                        </div>
+                                    </div>
+        
+                            </td>
                         <td>{{$imagen->detalle}}</td>
-                        <td>{{$imagen->size}}</td>
+                        <td>{{$imagen->user_id}}</td>
                         <td>
-                        <button type="button" class="btn btn-success">Editar</button>
-                        <button type="button" class="btn btn-danger">Eliminar</button>
+                            <a class="btn btn-info" href="{{route('imagenes.edit' , $imagen->id)}}">Editar</a>
+                            <a class="btn btn-danger" href="{{route('imagenes.destroy', $imagen->id)}}">Eliminar</a>
                         </td>
 
                     </tbody>
+                     
                    @endforeach
             </table>
 
                 <div class="panel-body">
-                     <a class="btn btn-info" href="{{ URL ('/formulario') }}" role="button">Añadir Meme</a>
+                     <a class="btn btn-success" href="{{ URL ('/formulario') }}" role="button">Añadir Meme</a>
 
                 </div>
             </div>
