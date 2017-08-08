@@ -21,7 +21,7 @@
 
                     </thead>
 
-                  
+                   @if(Auth::user()->id == user_id)
       
                      @foreach($imagenes as $imagen)
                      
@@ -31,9 +31,13 @@
                         <td>{{$imagen->detalle}}</td>
                         <td>{{$imagen->user_id}}</td>
                        
-
                     </tbody>
                    @endforeach
+                  @else  
+                  <p>no tiene imagenes</p>
+                @endif  
+
+
       </table>
 
 @endsection
