@@ -34,8 +34,7 @@
         
                             </td>
                         
-                       
-
+                    
                     </tbody>
                      
                    @endforeach
